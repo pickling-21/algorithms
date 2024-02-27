@@ -7,10 +7,20 @@ class MinHeap {
   size_type HeapSize() { return arr_.size(); };
   // MinHeap() { arr_.push_back(INT32_MIN); }
 
-  int find(int x) { return 0; }
+  bool IsValid_Index(int i) { return i <= arr_.size(); }
   void Swap(int i, int j){};
-  void ShiftDown(){};
-  void ShiftUp(){};
+  void ShiftDown(int i) {
+    for (; i < arr_.size(); ++i) {
+      int parent = i;
+      int left = i * 2 + 1;
+      int right = i * 2 + 2;
+      if (arr_[parent] < arr_[left]) {
+        std::swap(arr_[parent], arr_[left]);
+      } else if (arr_[parent] < arr_[right]) {
+        std::swap(arr_[parent], arr_[left]);
+      }
+    }
+  };
 
   void Insert(int x) {
     size_type i = arr_.size();
@@ -22,13 +32,22 @@ class MinHeap {
     // 0 значит 30 окажется дочкой 10 что верно!
     arr_.push_back(x);
     this->print();
-    while (arr_[parent] > arr_[i] && i > 0) {
+
+    while (arr_[parent] < arr_[i] && i > 0) {
       std::swap(arr_[parent], arr_[i]);
       i = parent;
       parent = (i - 1) / 2;
       this->print();
     }
+    std::cout << "AAAAAAAAAAAAAAA\n";
   };
+
+  void ExtractMax() {
+    std::cout << arr_[0] << std::endl;
+    for (size_type i = 1; i < arr_.size(); ++i) {
+        }
+    arr_.pop_back();
+  }
 
   void print() {
     for (int a : arr_) {
@@ -42,38 +61,22 @@ class MinHeap {
 };
 
 int main() {
-  MinHeap a;
+  MinHeap heap;
 
-  // 4  18 7  20  21  18  42  53  22
-  a.Insert(4);
-  // a.print();
-
-  a.Insert(18);
-  // a.print();
-
-  a.Insert(7);
-  // a.print();
-
-  a.Insert(20);
-  // a.print();
-
-  a.Insert(21);
-  std::cout << "ABOBA \n\n";
-  a.print();
-
-  a.Insert(1);
-  a.print();
   int n = 0;
-  // std::cin >> n;
+  std::cin >> n;
 
-  // for (int i = 0; i < 0; ++i) {
-  //   std::string operation;
-  //   int num;
-  //   std::cin >> operation >> num;
-  //   if (operation == "Insert") {
-  //   } else if (operation == "ExtractMax") {
-  //   }
-  // }
+  for (int i = 0; i < n; ++i) {
+    std::string operation;
+    std::cin >> operation;
+    if (operation == "Insert") {
+      int num;
+      std::cin >> num;
+      heap.Insert(num);
+    } else if (operation == "ExtractMax") {
+      heap.ExtractMax();
+    }
+  }
 
   return 0;
 }
