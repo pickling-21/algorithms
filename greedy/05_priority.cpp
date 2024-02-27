@@ -1,24 +1,54 @@
 #include <iostream>
 #include <vector>
 
-class MinHeap {
+class MaxHeap {
  public:
   using size_type = std::size_t;
   size_type HeapSize() { return arr_.size(); };
   // MinHeap() { arr_.push_back(INT32_MIN); }
 
-  bool IsValid_Index(int i) { return i <= arr_.size(); }
-  void Swap(int i, int j){};
   void ShiftDown(int i) {
-    for (; i < arr_.size(); ++i) {
-      int parent = i;
-      int left = i * 2 + 1;
-      int right = i * 2 + 2;
-      if (arr_[parent] < arr_[left]) {
-        std::swap(arr_[parent], arr_[left]);
-      } else if (arr_[parent] < arr_[right]) {
-        std::swap(arr_[parent], arr_[left]);
+    int size = arr_.size();
+    while (i < size) {
+      std::cout << "ASASASASASA\n\n";
+      int parent = Parent(i);
+      int left = Left(i);
+      int right = Right(i);
+      if (left < size && right < size) {
+        std::cout << "1AAAAA" << std::endl;
+
+        if (arr_[i] > arr_[left] || arr_[i] > arr_[right]) {
+          if (arr_[left] > arr_[right]) {
+            std::swap(arr_[i], arr_[left]);
+            std::cout << "1!!!!!!@" << std::endl;
+
+            i = left;
+          } else {
+            std::swap(arr_[i], arr_[right]);
+            std::cout << "1!!!!!!@" << std::endl;
+
+            i = right;
+          }
+        } else {
+          break;
+        }
+      } else if (left < size && arr_[left] > arr_[i]) {
+        std::swap(arr_[left], arr_[i]);
+        std::cout << "1!!!!!!@" << std::endl;
+        i = left;
+
+      } else if (right < size && arr_[right] > arr_[i]) {
+        std::swap(arr_[right], arr_[i]);
+        std::cout << "1!!!!!!@" << std::endl;
+
+        i = right;
+
+      } else {
+        std::cout << "1!!!!!!@" << std::endl;
+
+        break;  // не с кем менять
       }
+      this->print();
     }
   };
 
@@ -31,22 +61,21 @@ class MinHeap {
     // а если использовать правильно (i - 1) / 2  то все будет ок (2 - 1 ) / 2 =
     // 0 значит 30 окажется дочкой 10 что верно!
     arr_.push_back(x);
-    this->print();
 
     while (arr_[parent] < arr_[i] && i > 0) {
       std::swap(arr_[parent], arr_[i]);
       i = parent;
       parent = (i - 1) / 2;
-      this->print();
-    }
-    std::cout << "AAAAAAAAAAAAAAA\n";
+    };
   };
 
   void ExtractMax() {
     std::cout << arr_[0] << std::endl;
-    for (size_type i = 1; i < arr_.size(); ++i) {
-        }
+
+    arr_[0] = arr_[arr_.size() - 1];
     arr_.pop_back();
+
+    ShiftDown(0);
   }
 
   void print() {
@@ -57,11 +86,16 @@ class MinHeap {
   }
 
  private:
+  int Parent(int i) { return (i - 1) / 2; };
+  int Left(int i) { return i * 2 + 1; };
+  int Right(int i) { return i * 2 + 2; };
+
+ private:
   std::vector<int> arr_;
 };
 
 int main() {
-  MinHeap heap;
+  MaxHeap heap;
 
   int n = 0;
   std::cin >> n;
