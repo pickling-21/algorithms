@@ -78,6 +78,11 @@
         "memory_resource": "cpp",
         "ranges": "cpp",
         "stop_token": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "span": "cpp",
+        "format": "cpp",
+        "__verbose_abort": "cpp",
+        "charconv": "cpp",
+        "variant": "cpp"
     }
 }

@@ -13,7 +13,7 @@ void print_recipe(std::vector<int> recipe) {
 // говорит возможен ли рецепт и количество ингредиентов нужных для него
 bool find_recursive(const std::map<int, int>& recipes, int& ones, int& twoes,
                     int s, int start) {
-  for (auto recipe : recipes) {
+  for (auto recipes : recipes) {
     int ing = recipe.first;
     int count = recipe.second;
     if (ing == start) {

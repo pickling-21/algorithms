@@ -7,8 +7,8 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug",
-            "program": "${workspaceFolder}/greedy/a.out",
+            "name": "Launch",
+            "program": "${workspaceFolder}/yandex/a.out",
             "args": [],
             "cwd": "${workspaceFolder}"
         }

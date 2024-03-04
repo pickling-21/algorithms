@@ -5,50 +5,20 @@ class MaxHeap {
  public:
   using size_type = std::size_t;
   size_type HeapSize() { return arr_.size(); };
-  // MinHeap() { arr_.push_back(INT32_MIN); }
 
   void ShiftDown(int i) {
-    int size = arr_.size();
-    while (i < size) {
-      std::cout << "ASASASASASA\n\n";
-      int parent = Parent(i);
+    while (Left(i) < HeapSize()) {
       int left = Left(i);
       int right = Right(i);
-      if (left < size && right < size) {
-        std::cout << "1AAAAA" << std::endl;
-
-        if (arr_[i] > arr_[left] || arr_[i] > arr_[right]) {
-          if (arr_[left] > arr_[right]) {
-            std::swap(arr_[i], arr_[left]);
-            std::cout << "1!!!!!!@" << std::endl;
-
-            i = left;
-          } else {
-            std::swap(arr_[i], arr_[right]);
-            std::cout << "1!!!!!!@" << std::endl;
-
-            i = right;
-          }
-        } else {
-          break;
-        }
-      } else if (left < size && arr_[left] > arr_[i]) {
-        std::swap(arr_[left], arr_[i]);
-        std::cout << "1!!!!!!@" << std::endl;
-        i = left;
-
-      } else if (right < size && arr_[right] > arr_[i]) {
-        std::swap(arr_[right], arr_[i]);
-        std::cout << "1!!!!!!@" << std::endl;
-
-        i = right;
-
-      } else {
-        std::cout << "1!!!!!!@" << std::endl;
-
-        break;  // не с кем менять
+      int j = left;
+      if (right < HeapSize() && arr_[right] > arr_[left]) {
+        j = right;
       }
-      this->print();
+      if (arr_[i] >= arr_[j]) {
+        break;
+      }
+      std::swap(arr_[i], arr_[j]);
+      i = j;
     }
   };
 
