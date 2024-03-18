@@ -1,5 +1,5 @@
 a.out
 a.txt
-.vscode
+.vscode/
 yandex/
-a.out.*
+a.out.*/
