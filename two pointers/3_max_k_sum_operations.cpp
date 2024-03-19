@@ -34,6 +34,7 @@ Constraints:
 1 <= k <= 109
 */
 
+#include <cmath>
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -49,15 +50,22 @@ int maxOperations(std::vector<int>& nums, int k) {
   for (int num : nums) {
     seen[num]++;
   }
-  for (int num : nums) {
-    int target = k - num;
-    if (seen[target] > 0) {
-      seen[num]--;
-      seen[target]--;
-      count++;
+
+  for (auto p : seen) {
+    int pairs = 0;
+    int target = k - p.first;
+    if (seen.contains(target)) {
+      if (target != p.first) {
+        pairs = std::min(p.second, seen[target]);
+        seen[target] = 0;
+      } else {
+        pairs = std::floor(p.second / 2);
+      }
     }
-    print_map(seen);
-    std::cout << "------\n";
+    p.second = 0;
+    count += pairs;
+    // print_map(seen);
+    std::cout << p.first << "----\n";
   }
   return count;
 }
