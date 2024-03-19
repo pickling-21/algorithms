@@ -34,6 +34,7 @@ Constraints:
 1 <= k <= 109
 */
 
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <unordered_map>
@@ -44,28 +45,49 @@ void print_map(const std::unordered_map<int, int>& seen) {
     std::cout << p.first << " " << p.second << std::endl;
   }
 }
-int maxOperations(std::vector<int>& nums, int k) {
-  std::unordered_map<int, int> seen;
-  int count = 0;
-  for (int num : nums) {
-    seen[num]++;
-  }
+// int maxOperations(std::vector<int>& nums, int k) {
+//   std::unordered_map<int, int> seen;
+//   int count = 0;
+//   for (int num : nums) {
+//     seen[num]++;
+//   }
 
-  for (auto p : seen) {
-    int pairs = 0;
-    int target = k - p.first;
-    if (seen.contains(target)) {
-      if (target != p.first) {
-        pairs = std::min(p.second, seen[target]);
-        seen[target] = 0;
-      } else {
-        pairs = std::floor(p.second / 2);
-      }
+//   for (auto p : seen) {
+//     int pairs = 0;
+//     int target = k - p.first;
+//     if (seen.contains(target)) {
+//       if (target != p.first) {
+//         pairs = std::min(p.second, seen[target]);
+//         seen[target] = 0;
+//       } else {
+//         pairs = std::floor(p.second / 2);
+//       }
+//     }
+//     p.second = 0;
+//     count += pairs;
+//     // print_map(seen);
+//     std::cout << p.first << "----\n";
+//   }
+//   return count;
+// }
+
+int maxOperations(std::vector<int>& nums, int k) {
+  std::sort(nums.begin(), nums.end());
+  int count = 0;
+  int n = nums.size();
+  int i = 0;
+  int j = nums.size() - 1;
+  while (i < j) {
+    int sum = nums[i] + nums[j];
+    if (sum == k) {
+      count++;
+      i++;
+      j--;
+    } else if (sum > k) {
+      j--;
+    } else {
+      i++;
     }
-    p.second = 0;
-    count += pairs;
-    // print_map(seen);
-    std::cout << p.first << "----\n";
   }
   return count;
 }
